@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async JS</title>
+    <link rel="stylesheet" href="async.css">
+    <script src="async.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Async Await and Promise in JavaScript</h2>
+        <p>Consider we have the code below.</p>
+        <div class="code-block">
+            <code>
+                console.log('1st');
+            </code>
+            <code>
+                setTimeout(() => {
+                    console.log('2nd');
+                }, 0);
+            </code>
+            <code>
+                Promise.resolve().then(()=> {
+                    console.log('3rd');
+                });
+            </code>
+            <code>
+                console.log('4th');
+            </code>
+        </div>
+        <p>That would produce:</p>
+        <div class="code-block">
+            <code>1st</code>
+            <code>4th</code>
+            <code>3rd</code>
+            <code>2nd</code>
+        </div>
+        <p>Why does it not print out from 1 to 4? Simply enough, this is because the 1st and 4th line are synchronous while 2nd and 3rd are not.</p>
+        <p>What if we want to print out in in sequencing order. Let's try this!</p>
+        <div class="code-block">
+            <code>Promise.resolve()</code>
+                <code><span class="tab"></span>.then(()=> {</code>
+                    <code><span class="tab"><span class="tab"></span></span>console.log('1st');</code>
+                <code><span class="tab"></span>})</code>
+                <code><span class="tab"></span>.then(()=> {</code>
+                    <code><span class="tab"><span class="tab"></span></span>console.log('2nd');</code>
+                <code><span class="tab"></span>}).then(()=> {</code>
+                    <code><span class="tab"></span><span class="tab"></span>console.log('3rd');</code>
+                <code><span class="tab"></span>}).then(()=> {</code>
+                    <code><span class="tab"><span class="tab"></span></span>console.log('4th');</code>
+                <code><span class="tab"></span>});</code>
+        </div>
+        <p>Yay, we got our result!</p>
+        <div class="code-block">
+            <code>1st</code>
+            <code>2nd</code>
+            <code>3rd</code>
+            <code>4th</code>
+        </div>
+        <p>Still, this is a bit repetitive and would not be efficient if we have to print out a much longer list, consider 10 items for instance would take a bunch of line in code.</p>
+        <p>That then, here is the solution to batch them all.</p>
+        <div class="code-block">
+            <code>const numbers = ['1st', '2nd', '3rd', '4th'];</code>
+            <code>printNumbers = async() => {</code>
+                <code><span class="tab"></span>for await (const number of numbers) {</code>
+                    <code><span class="tab"><span class="tab"></span></span>console.log(number);</code>
+                <code><span class="tab"></span>}</code>
+            <code>}</code>
+            <code>printNumbers();</code>
+        </div>
+        <p>Feel free to open the console and try the fun :)</p>
+    </div>
+</body>
+</html>

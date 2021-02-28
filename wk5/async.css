@@ -1,0 +1,25 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+h2 {
+    text-align: center;;
+}
+
+.code-block {
+    background: #dedede;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.code-block > code{
+    display: block;
+    margin: 5px 0;
+}
+
+.code-block span.tab {
+    display: inline-block;
+    margin-right: 20px;
+}
